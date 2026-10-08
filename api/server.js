@@ -36,3 +36,5 @@ app.get('/servidor', async (req, res) =>{
         process.exit(1);
     }
 })
+
+   
