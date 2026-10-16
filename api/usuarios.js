@@ -1,14 +1,20 @@
+
 import mongoose from "mongoose";
 
 const usuariosSchema = new mongoose.Schema(
     {
-        nome: {type: String, required:true},
-        email: {type: String, required:true, unique: true},
-        senha: {type:  String, required: true, select: false},
-        telefone: {type: Number, required:true, unique: true},
-        idade: {type: Number, required:true}
+        nome: {  type: String, required: true, trim: true
+        },
+        email: { type: String, required: true, unique: true, lowercase: true, trim: true
+        },
+        senhaHash: { type: String, required: true, select: false
+        },
+        telefone: { type: String, required: true, unique: true, trim: true
+        },
+        idade: { type: Number, required: true, min: 1
+        }
     },
-    {timestamps: true}
-)
+    { timestamps: true }
+);
 
-export default mongoose.model('Usuarios', usuariosSchema);
+export default mongoose.model("Usuarios", usuariosSchema);
