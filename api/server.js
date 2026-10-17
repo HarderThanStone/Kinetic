@@ -5,6 +5,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import Usuario from "./usuarios.js";
 import authRouter from "./auth.js";
+import authMiddleware from "./authMiddleware.js";
 
 const app = express();
 
@@ -67,6 +68,19 @@ app.get("/servidor", (req, res) => {
     });
 });
 
+app.get("/perfil", authMiddleware, async (req, res) => {
+    const usuario = await Usuario.findById(req.usuario.sub)
+        .select("-senhaHash");
+
+    if (!usuario) {
+        return res.status(404).json({
+            erro: "Usuário não encontrado."
+        });
+    }
+
+    return res.json(usuario);
+});
+
 app.use((req, res) => {
     return res.status(404).json({
         erro: "Rota não encontrada.",
@@ -74,6 +88,9 @@ app.use((req, res) => {
         caminho: req.originalUrl
     });
 });
+
+
+
 
 const PORT = process.env.PORT || 3000;
 
