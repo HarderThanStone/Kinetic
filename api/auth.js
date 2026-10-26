@@ -1,4 +1,3 @@
-
 import express from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -16,18 +15,44 @@ router.post("/cadastro", async (req, res) => {
             });
         }
 
-        if (typeof senha !== "string" || senha.length < 8) {
+        if (
+            typeof nome !== "string" ||
+            typeof email !== "string" ||
+            typeof senha !== "string" ||
+            typeof telefone !== "string" && typeof telefone !== "number"
+        ) {
+            return res.status(400).json({
+                erro: "Os dados informados são inválidos."
+            });
+        }
+
+        if (senha.length < 8) {
             return res.status(400).json({
                 erro: "A senha deve ter pelo menos 8 caracteres."
             });
         }
 
         const emailNormalizado = email.trim().toLowerCase();
+        const telefoneNormalizado = String(telefone).trim();
+
+        if (!nome.trim() || !emailNormalizado || !telefoneNormalizado) {
+            return res.status(400).json({
+                erro: "Preencha todos os campos obrigatórios."
+            });
+        }
+
+        const idadeNumerica = Number(idade);
+
+        if (!Number.isInteger(idadeNumerica) || idadeNumerica < 1 || idadeNumerica > 120) {
+            return res.status(400).json({
+                erro: "Informe uma idade válida."
+            });
+        }
 
         const existente = await Usuario.findOne({
             $or: [
                 { email: emailNormalizado },
-                { telefone: String(telefone).trim() }
+                { telefone: telefoneNormalizado }
             ]
         });
 
@@ -42,8 +67,8 @@ router.post("/cadastro", async (req, res) => {
         const usuario = await Usuario.create({
             nome: nome.trim(),
             email: emailNormalizado,
-            telefone: String(telefone).trim(),
-            idade,
+            telefone: telefoneNormalizado,
+            idade: idadeNumerica,
             senhaHash
         });
 
@@ -53,6 +78,13 @@ router.post("/cadastro", async (req, res) => {
             email: usuario.email
         });
     } catch (err) {
+        if (err.name === "ValidationError") {
+            return res.status(400).json({
+                erro: "Dados inválidos.",
+                detalhes: Object.values(err.errors).map((e) => e.message)
+            });
+        }
+
         if (err.code === 11000) {
             return res.status(409).json({
                 erro: "Este e-mail ou telefone já está cadastrado."
@@ -71,7 +103,12 @@ router.post("/login", async (req, res) => {
     try {
         const { email, senha } = req.body;
 
-        if (!email || !senha) {
+        if (
+            typeof email !== "string" ||
+            typeof senha !== "string" ||
+            !email.trim() ||
+            !senha
+        ) {
             return res.status(400).json({
                 erro: "Informe o e-mail e a senha."
             });
@@ -119,7 +156,7 @@ router.post("/login", async (req, res) => {
             }
         );
 
-        return res.json({
+        return res.status(200).json({
             token,
             usuario: {
                 id: usuario._id,

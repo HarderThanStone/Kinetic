@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
+import Usuario from "./usuarios.js";
 
-export default function authMiddleware(req, res, next) {
+export default async function  authMiddleware(req, res, next) {
     const cabecalho = req.headers.authorization;
 
     if (!cabecalho || !cabecalho.startsWith("Bearer ")) {
@@ -16,6 +17,14 @@ export default function authMiddleware(req, res, next) {
             issuer: "kinetic-api",
             audience: "kinetic-app"
         });
+
+        const existe = await Usuario.existis({ _id: payload.sub});
+
+        if(!existe) {
+            return res.status(401).json({
+                erro: "Conta não foi encontrada. Faça login novamente."
+            });
+        }
 
         req.usuario = payload;
 
