@@ -38,4 +38,6 @@ export function inteiroNoIntervalo(valor, padrao, minimo, maximo){
     if(Number.isNaN(numero)){
         return padrao;
     }
+
+    return Math.min(maximo, Math.max(minimo, numero));
 }

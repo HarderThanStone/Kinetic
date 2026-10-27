@@ -23,3 +23,5 @@ export const PERIODOS_META = ["diario", "semanal"];
 
 export const TIPOS_LEMBRETE = ["atividade", "pausa", "meta", "geral"];
 
+export const REGEX_HORARIO = /^([01]\d|2[0-3]):[0-5]\d$/;
+export const REGEX_DIA = /^\d{4}-\d{2}-\d{2}$/;
