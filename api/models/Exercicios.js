@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { CATEGORIAS_EXERCICIOS, NIVEIS, IMPACTOS, POSICOES, COMPLEXIDADES, OBJETIVOS, DEFICIENCIAS, RESTRICOES } from "../constantes";
+import { CATEGORIAS_EXERCICIOS, NIVEIS, IMPACTOS, POSICOES, COMPLEXIDADES, OBJETIVOS, DEFICIENCIAS, RESTRICOES } from "../constantes.js";
 
 const exercicioSchema = new mongoose.exercicioSchema(
     {

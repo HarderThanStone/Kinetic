@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { TIPOS_META, PERIODOS_META } from "../constantes";
+import { TIPOS_META, PERIODOS_META } from "../constantes.js";
 
 const  metaSchema = new mongoose.Schema(
     {

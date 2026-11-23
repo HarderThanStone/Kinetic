@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { REGEX_DIA } from "../constantes";
+import { REGEX_DIA } from "../constantes.js";
 
 const usoTelaSchema = new mongoose.Schema(
     {

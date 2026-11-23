@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { DEFICIENCIAS, RESTRICOES, OBJETIVOS, NIVEIS } from "./constantes";
+import { DEFICIENCIAS, RESTRICOES, OBJETIVOS, NIVEIS } from "./constantes.js";
 
 const usuariosSchema = new mongoose.Schema(
     {

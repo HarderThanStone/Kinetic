@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { TIPO_ATIVIDADE, INTENSIDADE } from "../constantes";
+import { TIPO_ATIVIDADE, INTENSIDADE } from "./constantes.js";
 
 const atividadeSchema = new mongoose.Schema(
     {

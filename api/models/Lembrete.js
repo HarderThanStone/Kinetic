@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { TIPOS_LEMBRETE, REGEX_DIA, REGEX_HORARIO } from "../constantes";
+import { TIPOS_LEMBRETE, REGEX_DIA, REGEX_HORARIO } from "../constantes.js";
 
 const lembreteSchema = new mongoose.Schema({
     usuario: {type: mongoose.Schema.Types.ObjectId, ref: "Usuarios", required: true},
