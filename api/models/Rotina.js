@@ -14,14 +14,14 @@ const itemSchema = new mongoose.Schema(
     {_id: false}
 );
 
-const rotinaSchema = new.mongoose.Schema(
+const rotinaSchema = new mongoose.Schema(
     {
         usuario: {type: mongoose.Schema.Types.ObjectId, ref: "Usuarios", required: true},
         nome: {type: String, required: true, trim: true, maxlength:80},
 
         dias: {type: [Number], 
         validate:{
-            validator: (lista) => lista.every((n) => Number.isInteger(n) && n >= 0 <=  6),
+            validator: (lista) => lista.every((n) => Number.isInteger(n) && n >= 0 && n <= 6),
             message: "Os dias devem ser números de  0 (domingo) a 6 (sábado)."
             }
         },
@@ -43,5 +43,5 @@ const rotinaSchema = new.mongoose.Schema(
 
 rotinaSchema.index({ usuario: 1, ativa: 1});
 
-export default mongoose.mdoel("Rotinas", rotinaSchema);
+export default mongoose.model("Rotinas", rotinaSchema);
 

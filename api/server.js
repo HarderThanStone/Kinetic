@@ -3,9 +3,9 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
-import Usuario from "./usuarios.js";
 import authRouter from "./auth.js";
 import authMiddleware from "./authMiddleware.js";
+import perfilRouter from "./Rotas/perfil.js";
 
 const app = express();
 
@@ -32,18 +32,7 @@ app.get("/servidor", (req, res) => {
     });
 });
 
-app.get("/perfil", authMiddleware, async (req, res) => {
-    const usuario = await Usuario.findById(req.usuario.sub)
-        .select("-senhaHash");
-
-    if (!usuario) {
-        return res.status(404).json({
-            erro: "Usuário não encontrado."
-        });
-    }
-
-    return res.json(usuario);
-});
+app.use("/perfil", authMiddleware, perfilRouter);
 
 app.use((req, res) => {
     return res.status(404).json({

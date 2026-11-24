@@ -1,13 +1,13 @@
 import mongoose from "mongoose";
-import { TIPO_ATIVIDADE, INTENSIDADE } from "./constantes.js";
+import { TIPO_ATIVIDADE, INTENSIDADE } from "../constantes.js";
 
 const atividadeSchema = new mongoose.Schema(
     {
-        usuario: {type: mongoose.Schema.Types.ObjectId, ref: "Usarios", required: true},
-        tipo: { type: String, enum: TIPOS_ATIVIDADE, required: true },
+        usuario: {type: mongoose.Schema.Types.ObjectId, ref: "Usuarios", required: true},
+        tipo: { type: String, enum: TIPO_ATIVIDADE, required: true },
         titulo: { type: String, trim: true, maxlength: 80 },
         duracaoMin: { type: Number, required: true, min: 1, max: 1440 },
-        intensidade: { type: String, enum: INTENSIDADES, default: "moderada" },
+        intensidade: { type: String, enum: INTENSIDADE, default: "moderada" },
         distanciaEmKm: { type: Number, min: 0, max: 1000 },
         calorias: { type: Number, min: 0, max: 20000 },
         data: { type: Date, default: Date.now },

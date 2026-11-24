@@ -24,7 +24,7 @@ const usuariosSchema = new mongoose.Schema(
          condicoes: {
             deficiencias: [{type: String, enum: DEFICIENCIAS}],
             restricoes: [{type: String, enum: RESTRICOES}],
-            observacoes: [{type: String, trim: true, maxlength: 500, default: ""}],
+            observacoes: {type: String, trim: true, maxlength: 500, default: ""},
          },
 
          acessibilidade: {
@@ -38,7 +38,7 @@ const usuariosSchema = new mongoose.Schema(
          configuracoes: {
             monitoramentoDeTela: {type: Boolean, default: false},
             limiteDeTelaDiario: {type: Number, default: 240, min: 30, max: 1440},
-            intervaloPausaMin: {type: NUmber, default: 50, min: 10, max: 250},
+            intervaloPausaMin: {type: Number, default: 50, min: 10, max: 250},
             notificacoes: {type: Boolean, default: true},
          },
 

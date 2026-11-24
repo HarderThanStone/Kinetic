@@ -1,6 +1,6 @@
-export function tratarErros(res, err, mensagemPadrao = "Erro interno no servidor!") {
+export function tratarErro(res, err, mensagemPadrao = "Erro interno no servidor!") {
     if (err.name === "ValidationError"){
-        const detalhes = Object.values(err.erros).map((e) => err.message)
+        const detalhes = Object.values(err.errors).map((e) => e.message);
 
         return res.status(400).json({
             erro: "Dados inválidos!",
@@ -24,3 +24,5 @@ export function tratarErros(res, err, mensagemPadrao = "Erro interno no servidor
     return res.status(500).json({erro: mensagemPadrao});
 
 }
+
+export const tratarErros = tratarErro;

@@ -17,7 +17,7 @@ export function pegarCampos(origem, permitidos) {
      return resultado;
 }
 
-export function validarListar(valor, permitidos, nomeCampo) {
+export function validarLista(valor, permitidos, nomeCampo) {
     if(!Array.isArray(valor)) {
         return {erro: `${nomeCampo} deve ser uma lista.`}
     }
@@ -41,3 +41,5 @@ export function inteiroNoIntervalo(valor, padrao, minimo, maximo){
 
     return Math.min(maximo, Math.max(minimo, numero));
 }
+
+export const validarListar = validarLista;

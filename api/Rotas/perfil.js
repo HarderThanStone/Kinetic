@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 import Usuario from "../usuarios.js";
 import Atividade from "../models/Atividade.js";
 import Rotina from "../models/Rotina.js";
-import Meta from "../models/Meta.js";
+import Meta from "../models/Metas.js";
 import UsoTela from "../models/UsoTela.js";
 import Lembrete from "../models/Lembrete.js";
 import { DEFICIENCIAS, RESTRICOES } from "../constantes.js";
@@ -14,9 +14,9 @@ import { pegarCampos, validarLista } from "../utils/validar.js";
 const router = express.Router();
 
 const CAMPOS_SIMPLES = ["nome", "telefone", "idade"];
-const CAMPOS_PERFIL = ["objetivo", "nivel", "alturaCm", "pesoKg"];
+const CAMPOS_PERFIL = ["objetivo", "nivel", "alturaCm", "pesoKG"];
 const CAMPOS_ACESSIBILIDADE = ["fonteMaior", "altoContraste", "leitorDeTela","legendas","reduzirAnimacoes"];
-const CAMPOS_CONFIGURACOES = ["monitoramentoDeTela","limiteTelaDiarioMin","intervaloPausaMin","notificacoes"];
+const CAMPOS_CONFIGURACOES = ["monitoramentoDeTela","limiteDeTelaDiario","intervaloPausaMin","notificacoes"];
 
 function montarAtualizacao(corpo) {
   const atualizacao = pegarCampos(corpo, CAMPOS_SIMPLES);
@@ -170,7 +170,7 @@ router.delete("/", async (req, res) => {
       return res.status(404).json({ erro: "Usuário não encontrado."});
     }
 
-    const confere = await bcrypt.compare(senha, suario.senhaHash);
+    const confere = await bcrypt.compare(senha, usuario.senhaHash);
 
     if (!confere) {
       return res.status(401).json({ erro: "Senha incorreta. A conta não foi excluída."});

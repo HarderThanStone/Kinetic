@@ -43,7 +43,7 @@ router.post("/cadastro", async (req, res) => {
 
         const idadeNumerica = Number(idade);
 
-        if (!Number.isInteger(idadeNumerica) || idadeNumerica < 1 || idadeNumerica > 120) {
+        if (!Number.isInteger(idadeNumerica) || idadeNumerica < 1 || idadeNumerica > 100) {
             return res.status(400).json({
                 erro: "Informe uma idade válida."
             });

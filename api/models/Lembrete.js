@@ -4,7 +4,8 @@ import { TIPOS_LEMBRETE, REGEX_DIA, REGEX_HORARIO } from "../constantes.js";
 const lembreteSchema = new mongoose.Schema({
     usuario: {type: mongoose.Schema.Types.ObjectId, ref: "Usuarios", required: true},
     titulo: {type: String, required: true, trim: true, maxlength: 60},
-    mensagem: {type: String, enum: TIPOS_LEMBRETE, default: "atividade"},
+    tipo: {type: String, enum: TIPOS_LEMBRETE, default: "atividade"},
+    mensagem: {type: String, trim: true, maxlength: 300, default: ""},
     horario: {type: String, required: true, match: [REGEX_HORARIO, "O horário deve estar no formato HH:MM."]},
 
     dias: {
